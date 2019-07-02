@@ -36,7 +36,7 @@ else {
 }
 
 #main process starts
-while (my $row = <$fh>) {
+while (my $row = <$fh>) { #read DPD.txt line by line
   
   chomp $row;
   my @fields = split('\t', $row);
@@ -64,30 +64,32 @@ while (my $row = <$fh>) {
 #        open($dst_fh, "+>> $abs_dst");
 #        while (my $db_row = <$db_fh>) {
 #          my @db_fields = split('\t', $db_row);
-          #$fields[2] $fields[3] $fields[4] compare to $db_fields[0] $db_fields[1] $db_fields[2]          
+           #$fields[2] $fields[3] $fields[4] compare to $db_fields[0] $db_fields[1] $db_fields[2]          
 #          my $str_b=$db_fields[0].$db_fields[1].$db_fields[2];
 
 #          if($str_a eq $str_b) {
 #            $match_flag=1;             
 #            last;
 #          }
-#          close($db_fh);
 #        } # end of while
-        
-        my @split_abs_path=split('/', $abs_path); #git id locates $split_abs_path[2]
-        print "$split_abs_path[2]  $hash_id_date{$split_abs_path[2]}\n";
+#        close($db_fh);
+        #./collection1/subdirXX/ID/
+        #0      1         2     3
+        my @split_abs_path=split('/', $abs_path); #git id locates $split_abs_path[$dir_depth]
+        my $dir_depth=3;
+        print "$split_abs_path[$dir_depth]  $hash_id_date{$split_abs_path[$dir_depth]}\n";
 #        if($match_flag==0) {
 #          if(($last_record_pnp ne "passed on") || ($last_record_date==0)) {
-#            print $dst_fh "$row\tpassed on\t$hash_id_date{$split_abs_path[2]}\n"; #new col9&10 added
+#            print $dst_fh "$row\tpassed on\t$hash_id_date{$split_abs_path[$dir_depth]}\n"; #new col9&10 added
 #            $last_record_pnp="passed on";
-#            $last_record_date=$hash_id_date{$split_abs_path[2]};
+#            $last_record_date=$hash_id_date{$split_abs_path[$dir_depth]};
 #          }
 #        }
 #        else {
 #          if(($last_record_pnp ne "failed on") || ($last_record_date==0)) {
-#            print $dst_fh "$row\tfailed on\t$hash_id_date{$split_abs_path[2]}\n"; #new col9&10 added
+#            print $dst_fh "$row\tfailed on\t$hash_id_date{$split_abs_path[$dir_depth]}\n"; #new col9&10 added
 #            $last_record_pnp="failed on";
-#            $last_record_date=$hash_id_date{$split_abs_path[2]};
+#            $last_record_date=$hash_id_date{$split_abs_path[$dir_depth]};
 #          }
 #        }
 #        close($dst_fh);
