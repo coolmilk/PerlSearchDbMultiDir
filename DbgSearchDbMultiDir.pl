@@ -75,7 +75,7 @@ while (my $row = <$fh>) {
     for(my $i=0;$i<$abs_path_list_cnt;$i++) {
       my $abs_path=$abs_path_list[$i];
       my $abs_dst="$output_dir/$fields[1]__$fields[2]__$fields[3].log";
-      #print "search in $abs_path\n";
+      print "search in $abs_path\n";
       if(open(my $db_fh, $abs_path)) {
         my $match_flag = 0;
         my $str_a=$fields[2].$fields[3].$fields[4];
@@ -99,14 +99,14 @@ while (my $row = <$fh>) {
           if(($last_record_pnp ne "passed on")) {
             if(exists($hash_id_date{$split_abs_path[3]})) {            
               print $dst_fh "$row\tpassed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n"; #new col9&10 added
-              #print "$row\tpassed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n";
+              print "$row\tpassed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n";
             }
             else {
               print $dst_fh "$row\tpassed on\t$split_abs_path[3]\n";
             }
           }
           else {
-            #print "passed again\n";
+            print "passed again\n";
           }
           $last_record_pnp="passed on";
         }
@@ -114,14 +114,14 @@ while (my $row = <$fh>) {
           if(($last_record_pnp ne "failed on")) {
             if(exists($hash_id_date{$split_abs_path[3]})) {         
               print $dst_fh "$row\tfailed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n"; #new col9&10 added
-              #print "$row\tfailed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n";
+              print "$row\tfailed on\t$hash_id_date{$split_abs_path[3]}\t$split_abs_path[3]\n";
             }
             else {
               print $dst_fh "$row\tfailed on\t$split_abs_path[3]\n";
             }
           }
           else {
-            #print "failed again\n";
+            print "failed again\n";
           }
           $last_record_pnp="failed on";
         }
